@@ -161,3 +161,6 @@ Temporary Items
 
 # Local History for Visual Studio Code
 .history/
+
+# misc
+.issues*
