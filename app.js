@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 let axios = require('axios');
+const getUserData = require('./helpers');
 
 const PORT = process.env.PORT || 3000;
 var app = express();
@@ -11,14 +12,8 @@ app.use(express.urlencoded({ extended: true }));
 app.post('/', async function (req, res, next) {
   const names = req.body.developers;
   try {
-    let results = await axios.all(
-      names.map((name) => axios.get(`https://api.github.com/users/${name}`))
-    );
-    let out = results.map((r) => {
-      return { name: r.data.name, bio: r.data.bio };
-    });
-
-    return res.json(out);
+    devInfo = await getUserData(names);
+    return res.status(200).json(devInfo);
   } catch (err) {
     next(err);
   }
