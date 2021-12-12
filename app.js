@@ -1,10 +1,10 @@
+require('dotenv').config();
 const express = require('express');
 let axios = require('axios');
-const morgan = require('morgan');
 
+const PORT = process.env.PORT || 3000;
 var app = express();
 
-app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -24,7 +24,7 @@ app.post('/', async function (req, res, next) {
   }
 });
 
-app.listen(3000, (error) => {
+app.listen(PORT, (error) => {
   if (!error) {
     console.log(`Serving is now running on http://localhost:3000...`);
   } else {
